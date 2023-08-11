@@ -2,8 +2,8 @@
 LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
 
 const int floorButtons[] = {8, 9, 10, 11};
-const int openDoorButton = 12;
-const int closeDoorButton = 13;
+const int upDoorButton = 12;
+const int downDoorButton = 13;
 const int floorLEDs[] = {14, 15, 16, 17};
 
 const char* floorLabels[] = {"2   3   4", "G   3   4", "G   2   4", "G   2   3"};
@@ -33,10 +33,10 @@ void setup() {
     digitalWrite(floorLEDs[i], LOW);
   }
 
-  pinMode(openDoorButton, INPUT);
-  digitalWrite(openDoorButton, LOW);
-  pinMode(closeDoorButton, INPUT);
-  digitalWrite(closeDoorButton, LOW);
+  pinMode(upDoorButton, INPUT);
+  digitalWrite(upDoorButton, LOW);
+  pinMode(downDoorButton, INPUT);
+  digitalWrite(downDoorButton, LOW);
 
   updateLEDs();
 }
@@ -59,7 +59,7 @@ void loop() {
       delay(2000);
 
       // Check for door open request
-      if (digitalRead(openDoorButton) == HIGH || digitalRead(closeDoorButton) == HIGH ) {
+      if (digitalRead(upDoorButton) == HIGH || digitalRead(downDoorButton) == HIGH ) {
         elevatorState = OPENING_DOOR;
       }
       break;
