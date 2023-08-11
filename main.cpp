@@ -56,7 +56,7 @@ void loop() {
       lcd.print("G");  // Display G floor
       }
       
-      delay(2000);
+      delay(100);
 
       // Check for door open request
       if (digitalRead(upDoorButton) == HIGH || digitalRead(downDoorButton) == HIGH ) {
