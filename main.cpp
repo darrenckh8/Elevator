@@ -14,6 +14,7 @@ int currentFloor = 0; // 0-indexed, represents Ground floor
 int targetFloor = -1; // -1 represents no target floor
 
 bool clearLCD = true;
+bool testingMode = false;
 
 byte upArrow[8] = {
     B00100,
@@ -97,6 +98,24 @@ void loop()
       else
       {
         lcd.print("G"); // Display G floor
+      }
+    }
+
+    if (testingMode)
+    {
+      for (int i = 0; i < 4; i++)
+      {
+        if (digitalRead(floorButtons[i]) == HIGH)
+        {
+          targetFloor = i;
+          if (targetFloor == currentFloor)
+          {
+            elevatorState = CLOSING_DOOR;
+            break;
+          }
+          elevatorState = (targetFloor > currentFloor) ? MOVING_UP : MOVING_DOWN;
+          break;
+        }
       }
     }
 
@@ -231,6 +250,18 @@ void loop()
     break;
 
   case ARRIVED:
+
+    lcd.setCursor(4, 0);
+    lcd.print("Floor ");
+    if (currentFloor > 0)
+    {
+      lcd.print(currentFloor + 1);
+    }
+    else
+    {
+      lcd.print("G");
+    }
+    delay(2000);
     lcd.clear();
     lcd.setCursor(4, 0);
     lcd.print("Arrived at");
