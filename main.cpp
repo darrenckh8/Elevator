@@ -5,6 +5,8 @@ const int floorButtons[] = {8, 9, 10, 11};
 const int upDoorButton = 12;
 const int downDoorButton = 13;
 const int floorLEDs[] = {14, 15, 16, 17};
+const int intOpenDoorButtons = 18;
+const int intCloseDoorButtons = 19;
 
 const char *floorLabels[] = {"2   3   4", "G   3   4", "G   2   4", "G   2   3"};
 
@@ -36,6 +38,11 @@ void setup()
     pinMode(floorLEDs[i], OUTPUT);
     digitalWrite(floorLEDs[i], LOW);
   }
+
+  pinMode(intOpenDoorButtons, INPUT);
+  digitalWrite(intOpenDoorButtons, LOW);
+  pinMode(intCloseDoorButtons, INPUT);
+  digitalWrite(intCloseDoorButtons, LOW);
 
   pinMode(upDoorButton, INPUT);
   digitalWrite(upDoorButton, LOW);
@@ -111,7 +118,12 @@ void loop()
         elevatorState = (targetFloor > currentFloor) ? MOVING_UP : MOVING_DOWN;
         break;
       }
-      else if (digitalRead(upDoorButton) == HIGH || digitalRead(downDoorButton) == HIGH)
+      else if (digitalRead(intCloseDoorButtons) == HIGH)
+      {
+        elevatorState = CLOSING_DOOR;
+        break;
+      }
+      else if (digitalRead(upDoorButton) == HIGH || digitalRead(downDoorButton) == HIGH || digitalRead(intOpenDoorButtons) == HIGH)
       {
         elevatorState = ABORTED;
         break;
