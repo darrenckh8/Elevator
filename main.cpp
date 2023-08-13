@@ -276,12 +276,15 @@ void loop()
       lcd.print("G");
     }
     delay(2000);
-    lcd.clear();
-    lcd.print("Doors Opened");
-    delay(3000);
-    lcd.clear();
-    lcd.print("Doors Closed");
-    delay(3000);
+    if (testingMode == false)
+    {
+      lcd.clear();
+      lcd.print("Doors Opened");
+      delay(3000);
+      lcd.clear();
+      lcd.print("Doors Closed");
+      delay(3000);
+    }
     targetFloor = -1;
     elevatorState = IDLE;
     clearLCD = true;
