@@ -147,11 +147,25 @@ void loop()
     lcd.clear();
     lcd.setCursor(4, 1);
     lcd.print("UP [");
-    lcd.print(targetFloor + 1);
+    if (targetFloor > 0)
+    {
+      lcd.print(targetFloor + 1);
+    }
+    else
+    {
+      lcd.print("G");
+    }
     lcd.print("]...");
     lcd.setCursor(4, 0);
     lcd.print("Floor ");
-    lcd.print(currentFloor + 1); // Display current floor
+    if (currentFloor > 0)
+    {
+      lcd.print(currentFloor + 1);
+    }
+    else
+    {
+      lcd.print("G");
+    }
     delay(2000);
     currentFloor++;
     updateLEDs();
@@ -163,11 +177,25 @@ void loop()
     lcd.clear();
     lcd.setCursor(4, 1);
     lcd.print("DOWN [");
-    lcd.print(targetFloor + 1);
+    if (targetFloor > 0)
+    {
+      lcd.print(targetFloor + 1);
+    }
+    else
+    {
+      lcd.print("G");
+    }
     lcd.print("]...");
     lcd.setCursor(4, 0);
     lcd.print("Floor ");
-    lcd.print(currentFloor + 1); // Display current floor
+    if (currentFloor > 0)
+    {
+      lcd.print(currentFloor + 1);
+    }
+    else
+    {
+      lcd.print("G");
+    }
     delay(2000);
     currentFloor--;
     updateLEDs();
@@ -181,7 +209,14 @@ void loop()
     lcd.print("Arrived at");
     lcd.setCursor(4, 1);
     lcd.print("Floor ");
-    lcd.print(currentFloor + 1);
+    if (currentFloor > 0)
+    {
+      lcd.print(currentFloor + 1);
+    }
+    else
+    {
+      lcd.print("G");
+    }
     delay(2000);
     lcd.clear();
     lcd.print("Doors Opened");
