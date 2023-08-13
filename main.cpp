@@ -13,6 +13,8 @@ const char *floorLabels[] = {"2   3   4", "G   3   4", "G   2   4", "G   2   3"}
 int currentFloor = 0; // 0-indexed, represents Ground floor
 int targetFloor = -1; // -1 represents no target floor
 
+bool clearLCD = true;
+
 enum ElevatorState
 {
   IDLE,
@@ -57,19 +59,22 @@ void loop()
   switch (elevatorState)
   {
   case IDLE:
-    lcd.clear();
-    lcd.setCursor(2, 0);
-    lcd.print("Current Floor");
-    lcd.setCursor(4, 1);
-    lcd.print("Floor ");
+    if (clearLCD)
+    {
+      lcd.clear();
+      lcd.setCursor(2, 0);
+      lcd.print("Current Floor");
+      lcd.setCursor(4, 1);
+      lcd.print("Floor ");
 
-    if (currentFloor > 0)
-    {
-      lcd.print(currentFloor + 1); // Display floor number
-    }
-    else
-    {
-      lcd.print("G"); // Display G floor
+      if (currentFloor > 0)
+      {
+        lcd.print(currentFloor + 1); // Display floor number
+      }
+      else
+      {
+        lcd.print("G"); // Display G floor
+      }
     }
 
     delay(100);
@@ -79,6 +84,7 @@ void loop()
     {
       elevatorState = OPENING_DOOR;
     }
+    clearLCD = false;
     break;
 
   case OPENING_DOOR:
@@ -101,6 +107,7 @@ void loop()
 
     delay(100);
     elevatorState = CLOSING_DOOR;
+    clearLCD = true;
     break;
 
   case CLOSING_DOOR:
@@ -129,6 +136,7 @@ void loop()
         break;
       }
     }
+    clearLCD = true;
     break;
 
   case MOVING_UP:
@@ -144,6 +152,7 @@ void loop()
     currentFloor++;
     updateLEDs();
     elevatorState = (currentFloor == targetFloor) ? ARRIVED : MOVING_UP;
+    clearLCD = true;
     break;
 
   case MOVING_DOWN:
@@ -159,6 +168,7 @@ void loop()
     currentFloor--;
     updateLEDs();
     elevatorState = (currentFloor == targetFloor) ? ARRIVED : MOVING_DOWN;
+    clearLCD = true;
     break;
 
   case ARRIVED:
@@ -177,6 +187,7 @@ void loop()
     delay(3000);
     targetFloor = -1;
     elevatorState = IDLE;
+    clearLCD = true;
     break;
 
   case ABORTED:
