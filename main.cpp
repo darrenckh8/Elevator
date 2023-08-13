@@ -84,6 +84,10 @@ void loop()
     {
       elevatorState = OPENING_DOOR;
     }
+    if (digitalRead(intOpenDoorButtons) == HIGH)
+    {
+      elevatorState = ABORTED;
+    }
     clearLCD = false;
     break;
 
@@ -199,6 +203,8 @@ void loop()
     delay(3000);
     targetFloor = -1;
     elevatorState = IDLE;
+    clearLCD = true;
+    break;
   }
 }
 
