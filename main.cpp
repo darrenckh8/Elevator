@@ -140,43 +140,31 @@ void loop()
     lcd.print("Door Opened");
 
     pinMode(intOpenDoorButtons, OUTPUT);
-    digitalWrite(intOpenDoorButtons, HIGH);
-    delay(500);
-    digitalWrite(intOpenDoorButtons, LOW);
-    delay(500);
-    digitalWrite(intOpenDoorButtons, HIGH);
-    delay(500);
-    digitalWrite(intOpenDoorButtons, LOW);
-    delay(500);
-    digitalWrite(intOpenDoorButtons, HIGH);
-    delay(500);
-    digitalWrite(intOpenDoorButtons, LOW);
-    delay(500);
-    digitalWrite(intOpenDoorButtons, HIGH);
+    for (int i = 0; i < 3; i++)
+    {
+      digitalWrite(intOpenDoorButtons, HIGH);
+      delay(500);
+      digitalWrite(intOpenDoorButtons, LOW);
+      delay(500);
+    }
 
-    pinMode(intOpenDoorButtons, INPUT);
     digitalWrite(intOpenDoorButtons, LOW);
+    pinMode(intOpenDoorButtons, INPUT);
 
     lcd.setCursor(4, 1);
     lcd.print("Door Closed");
 
     pinMode(intCloseDoorButtons, OUTPUT);
-    digitalWrite(intCloseDoorButtons, HIGH);
-    delay(500);
-    digitalWrite(intCloseDoorButtons, LOW);
-    delay(500);
-    digitalWrite(intCloseDoorButtons, HIGH);
-    delay(500);
-    digitalWrite(intCloseDoorButtons, LOW);
-    delay(500);
-    digitalWrite(intCloseDoorButtons, HIGH);
-    delay(500);
-    digitalWrite(intCloseDoorButtons, LOW);
-    delay(500);
-    digitalWrite(intCloseDoorButtons, HIGH);
+    for (int i = 0; i < 3; i++)
+    {
+      digitalWrite(intCloseDoorButtons, HIGH);
+      delay(500);
+      digitalWrite(intCloseDoorButtons, LOW);
+      delay(500);
+    }
 
-    pinMode(intCloseDoorButtons, INPUT);
     digitalWrite(intCloseDoorButtons, LOW);
+    pinMode(intCloseDoorButtons, INPUT);
 
     lcd.clear();
     lcd.setCursor(3, 0);
@@ -326,44 +314,32 @@ void loop()
       lcd.print("Doors Opened");
 
       pinMode(intOpenDoorButtons, OUTPUT);
-      digitalWrite(intOpenDoorButtons, HIGH);
-      delay(500);
-      digitalWrite(intOpenDoorButtons, LOW);
-      delay(500);
-      digitalWrite(intOpenDoorButtons, HIGH);
-      delay(500);
-      digitalWrite(intOpenDoorButtons, LOW);
-      delay(500);
-      digitalWrite(intOpenDoorButtons, HIGH);
-      delay(500);
-      digitalWrite(intOpenDoorButtons, LOW);
-      delay(500);
-      digitalWrite(intOpenDoorButtons, HIGH);
+      for (int i = 0; i < 3; i++)
+      {
+        digitalWrite(intOpenDoorButtons, HIGH);
+        delay(500);
+        digitalWrite(intOpenDoorButtons, LOW);
+        delay(500);
+      }
 
-      pinMode(intOpenDoorButtons, INPUT);
       digitalWrite(intOpenDoorButtons, LOW);
+      pinMode(intOpenDoorButtons, INPUT);
 
       lcd.clear();
       lcd.print("Doors Closed");
 
       pinMode(intCloseDoorButtons, OUTPUT);
-      digitalWrite(intCloseDoorButtons, HIGH);
-      delay(500);
-      digitalWrite(intCloseDoorButtons, LOW);
-      delay(500);
-      digitalWrite(intCloseDoorButtons, HIGH);
-      delay(500);
-      digitalWrite(intCloseDoorButtons, LOW);
-      delay(500);
-      digitalWrite(intCloseDoorButtons, HIGH);
-      delay(500);
-      digitalWrite(intCloseDoorButtons, LOW);
-      delay(500);
-      digitalWrite(intCloseDoorButtons, HIGH);
+      for (int i = 0; i < 3; i++)
+      {
+        digitalWrite(intCloseDoorButtons, HIGH);
+        delay(500);
+        digitalWrite(intCloseDoorButtons, LOW);
+        delay(500);
+      }
 
-      pinMode(intCloseDoorButtons, INPUT);
       digitalWrite(intCloseDoorButtons, LOW);
-    }
+      pinMode(intCloseDoorButtons, INPUT);
+        }
     targetFloor = -1;
     elevatorState = IDLE;
     clearLCD = true;
