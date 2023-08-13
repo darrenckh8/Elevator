@@ -18,7 +18,8 @@ enum ElevatorState
   CLOSING_DOOR,
   MOVING_UP,
   MOVING_DOWN,
-  ARRIVED
+  ARRIVED,
+  ABORTED
 };
 
 ElevatorState elevatorState = IDLE;
@@ -110,6 +111,11 @@ void loop()
         elevatorState = (targetFloor > currentFloor) ? MOVING_UP : MOVING_DOWN;
         break;
       }
+      else if (digitalRead(upDoorButton) == HIGH || digitalRead(downDoorButton) == HIGH)
+      {
+        elevatorState = ABORTED;
+        break;
+      }
     }
     break;
 
@@ -160,6 +166,16 @@ void loop()
     targetFloor = -1;
     elevatorState = IDLE;
     break;
+
+  case ABORTED:
+    lcd.clear();
+    lcd.print("Doors Opened");
+    delay(3000);
+    lcd.clear();
+    lcd.print("Doors Closed");
+    delay(3000);
+    targetFloor = -1;
+    elevatorState = IDLE;
   }
 }
 
