@@ -51,6 +51,7 @@ ElevatorState elevatorState = IDLE;
 
 void setup()
 {
+  Serial.begin(9600);
   lcd.begin(16, 2);
   lcd.clear();
 
@@ -137,10 +138,46 @@ void loop()
     lcd.clear();
     lcd.setCursor(4, 1);
     lcd.print("Door Opened");
-    delay(3000);
+
+    pinMode(intOpenDoorButtons, OUTPUT);
+    digitalWrite(intOpenDoorButtons, HIGH);
+    delay(500);
+    digitalWrite(intOpenDoorButtons, LOW);
+    delay(500);
+    digitalWrite(intOpenDoorButtons, HIGH);
+    delay(500);
+    digitalWrite(intOpenDoorButtons, LOW);
+    delay(500);
+    digitalWrite(intOpenDoorButtons, HIGH);
+    delay(500);
+    digitalWrite(intOpenDoorButtons, LOW);
+    delay(500);
+    digitalWrite(intOpenDoorButtons, HIGH);
+
+    pinMode(intOpenDoorButtons, INPUT);
+    digitalWrite(intOpenDoorButtons, LOW);
+
     lcd.setCursor(4, 1);
     lcd.print("Door Closed");
-    delay(1500);
+
+    pinMode(intCloseDoorButtons, OUTPUT);
+    digitalWrite(intCloseDoorButtons, HIGH);
+    delay(500);
+    digitalWrite(intCloseDoorButtons, LOW);
+    delay(500);
+    digitalWrite(intCloseDoorButtons, HIGH);
+    delay(500);
+    digitalWrite(intCloseDoorButtons, LOW);
+    delay(500);
+    digitalWrite(intCloseDoorButtons, HIGH);
+    delay(500);
+    digitalWrite(intCloseDoorButtons, LOW);
+    delay(500);
+    digitalWrite(intCloseDoorButtons, HIGH);
+
+    pinMode(intCloseDoorButtons, INPUT);
+    digitalWrite(intCloseDoorButtons, LOW);
+
     lcd.clear();
     lcd.setCursor(3, 0);
     lcd.print("Select Floor");
@@ -169,6 +206,9 @@ void loop()
           break;
         }
         elevatorState = (targetFloor > currentFloor) ? MOVING_UP : MOVING_DOWN;
+        delay(100);
+        pinMode(floorButtons[i], OUTPUT);
+        digitalWrite(floorButtons[i], HIGH);
         break;
       }
       else if (digitalRead(intCloseDoorButtons) == HIGH)
@@ -276,14 +316,53 @@ void loop()
       lcd.print("G");
     }
     delay(2000);
+
+    digitalWrite(floorButtons[currentFloor], LOW);
+    pinMode(floorButtons[currentFloor], INPUT);
+
     if (testingMode == false)
     {
       lcd.clear();
       lcd.print("Doors Opened");
-      delay(3000);
+
+      pinMode(intOpenDoorButtons, OUTPUT);
+      digitalWrite(intOpenDoorButtons, HIGH);
+      delay(500);
+      digitalWrite(intOpenDoorButtons, LOW);
+      delay(500);
+      digitalWrite(intOpenDoorButtons, HIGH);
+      delay(500);
+      digitalWrite(intOpenDoorButtons, LOW);
+      delay(500);
+      digitalWrite(intOpenDoorButtons, HIGH);
+      delay(500);
+      digitalWrite(intOpenDoorButtons, LOW);
+      delay(500);
+      digitalWrite(intOpenDoorButtons, HIGH);
+
+      pinMode(intOpenDoorButtons, INPUT);
+      digitalWrite(intOpenDoorButtons, LOW);
+
       lcd.clear();
       lcd.print("Doors Closed");
-      delay(3000);
+
+      pinMode(intCloseDoorButtons, OUTPUT);
+      digitalWrite(intCloseDoorButtons, HIGH);
+      delay(500);
+      digitalWrite(intCloseDoorButtons, LOW);
+      delay(500);
+      digitalWrite(intCloseDoorButtons, HIGH);
+      delay(500);
+      digitalWrite(intCloseDoorButtons, LOW);
+      delay(500);
+      digitalWrite(intCloseDoorButtons, HIGH);
+      delay(500);
+      digitalWrite(intCloseDoorButtons, LOW);
+      delay(500);
+      digitalWrite(intCloseDoorButtons, HIGH);
+
+      pinMode(intCloseDoorButtons, INPUT);
+      digitalWrite(intCloseDoorButtons, LOW);
     }
     targetFloor = -1;
     elevatorState = IDLE;
