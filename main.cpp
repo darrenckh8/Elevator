@@ -15,6 +15,26 @@ int targetFloor = -1; // -1 represents no target floor
 
 bool clearLCD = true;
 
+byte upArrow[8] = {
+    B00100,
+    B01110,
+    B11111,
+    B00100,
+    B00100,
+    B00100,
+    B00100,
+    B00000};
+
+byte downArrow[8] = {
+    B00000,
+    B00100,
+    B00100,
+    B00100,
+    B11111,
+    B01110,
+    B00100,
+    B00000};
+
 enum ElevatorState
 {
   IDLE,
@@ -32,6 +52,9 @@ void setup()
 {
   lcd.begin(16, 2);
   lcd.clear();
+
+  lcd.createChar(0, upArrow);
+  lcd.createChar(1, downArrow);
 
   for (int i = 0; i < 4; i++)
   {
@@ -145,6 +168,8 @@ void loop()
 
   case MOVING_UP:
     lcd.clear();
+    lcd.setCursor(1, 0);
+    lcd.write(byte(0));
     lcd.setCursor(4, 1);
     lcd.print("UP [");
     if (targetFloor > 0)
@@ -175,6 +200,8 @@ void loop()
 
   case MOVING_DOWN:
     lcd.clear();
+    lcd.setCursor(1, 1);
+    lcd.write(byte(1));
     lcd.setCursor(4, 1);
     lcd.print("DOWN [");
     if (targetFloor > 0)
