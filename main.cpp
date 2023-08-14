@@ -14,7 +14,6 @@ int currentFloor = 0; // 0-indexed, represents Ground floor
 int targetFloor = -1; // -1 represents no target floor
 
 bool clearLCD = true;
-bool testingMode = false;
 
 byte upArrow[8] = {
     B00100,
@@ -99,24 +98,6 @@ void loop()
       else
       {
         lcd.print("G"); // Display G floor
-      }
-    }
-
-    if (testingMode)
-    {
-      for (int i = 0; i < 4; i++)
-      {
-        if (digitalRead(floorButtons[i]) == HIGH)
-        {
-          targetFloor = i;
-          if (targetFloor == currentFloor)
-          {
-            elevatorState = CLOSING_DOOR;
-            break;
-          }
-          elevatorState = (targetFloor > currentFloor) ? MOVING_UP : MOVING_DOWN;
-          break;
-        }
       }
     }
 
@@ -308,38 +289,36 @@ void loop()
     digitalWrite(floorButtons[currentFloor], LOW);
     pinMode(floorButtons[currentFloor], INPUT);
 
-    if (testingMode == false)
+    lcd.clear();
+    lcd.print("Doors Opened");
+
+    pinMode(intOpenDoorButtons, OUTPUT);
+    for (int i = 0; i < 3; i++)
     {
-      lcd.clear();
-      lcd.print("Doors Opened");
-
-      pinMode(intOpenDoorButtons, OUTPUT);
-      for (int i = 0; i < 3; i++)
-      {
-        digitalWrite(intOpenDoorButtons, HIGH);
-        delay(500);
-        digitalWrite(intOpenDoorButtons, LOW);
-        delay(500);
-      }
-
+      digitalWrite(intOpenDoorButtons, HIGH);
+      delay(500);
       digitalWrite(intOpenDoorButtons, LOW);
-      pinMode(intOpenDoorButtons, INPUT);
+      delay(500);
+    }
 
-      lcd.clear();
-      lcd.print("Doors Closed");
+    digitalWrite(intOpenDoorButtons, LOW);
+    pinMode(intOpenDoorButtons, INPUT);
 
-      pinMode(intCloseDoorButtons, OUTPUT);
-      for (int i = 0; i < 3; i++)
-      {
-        digitalWrite(intCloseDoorButtons, HIGH);
-        delay(500);
-        digitalWrite(intCloseDoorButtons, LOW);
-        delay(500);
-      }
+    lcd.clear();
+    lcd.print("Doors Closed");
 
+    pinMode(intCloseDoorButtons, OUTPUT);
+    for (int i = 0; i < 3; i++)
+    {
+      digitalWrite(intCloseDoorButtons, HIGH);
+      delay(500);
       digitalWrite(intCloseDoorButtons, LOW);
-      pinMode(intCloseDoorButtons, INPUT);
-        }
+      delay(500);
+    }
+
+    digitalWrite(intCloseDoorButtons, LOW);
+    pinMode(intCloseDoorButtons, INPUT);
+
     targetFloor = -1;
     elevatorState = IDLE;
     clearLCD = true;
